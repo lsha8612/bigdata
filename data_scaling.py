@@ -48,7 +48,15 @@ df1['한국인_mm'] = scaler.fit_transform(df1[['한국인']])
 df1['일본인_mm'] = scaler.fit_transform(df1[['일본인']])
 
 ##직접 식 입력하여 표준화
+Min = np.min(korean)
+Max = np.max(korean)
+df1['한국인_m2'] = (df1[['한국인']]-Min) / (Max-Min)
 
+Min = np.min(japan)
+Max = np.max(japan)
+df1['일본인_m2'] = (df1[['일본인']] - Min) / (Max-Min)
+
+print(df1.head())
 
 print(df1.head())
 
