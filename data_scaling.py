@@ -57,6 +57,3 @@ Max = np.max(japan)
 df1['일본인_m2'] = (df1[['일본인']] - Min) / (Max-Min)
 
 print(df1.head())
-
-print(df1.head())
-
