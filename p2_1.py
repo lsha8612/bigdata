@@ -11,7 +11,7 @@ from statsmodels.stats.proportion import proportion_confint
 
 df = pd.read_csv('HR-Employee-Attrition.csv')
 target = {'Yes':1, 'No':0}
-df['Attrition_change'] = df['Attrition'].apply(lambda x: target[x])
+df['Attrition_numerical'] = df['Attrition'].apply(lambda x: target[x])
 #print(df['Attrition_change'].value_counts())
 
 ### 2반. 데이터셋의 데이터타입별 컬럼 개수를 계산하고, 범주형 변수 중 유일한 값을 1개만 가지고 있는
@@ -22,8 +22,9 @@ df['Attrition_change'] = df['Attrition'].apply(lambda x: target[x])
 
 cat_feat = df.select_dtypes('object', 'category').columns.values
 df_cat = df[cat_feat].copy()
+df_cat.nunique().sort_values()
 # print(df_cat.nunique())
-df = df.drop(['Over18'], axis=1, errors='ignore')
+df_cat = df_cat.drop(['Over18'], axis=1, errors='ignore')
 # print(df.info())
 
 ### 3번. 원래 데이터에서 숫자형인 변수만 추출하여 새로운 데이터프레임을 생성하고,
@@ -41,4 +42,4 @@ for comb in comb_num_feat:
     corr_num_feat = np.append(corr_num_feat, corr)
 
 high_corr_num = comb_num_feat[np.abs(corr_num_feat) >= 0.9]
-print(high_corr_num)
+attrition_num = attrition_num.drop(np.unique(high_corr_num[:,0]), axis=1, errors='ignore')
