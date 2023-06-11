@@ -27,5 +27,9 @@ pred = lr.predict(X_test)
 
 ## 정확도 측정
 from sklearn.metrics import r2_score
+score = r2_score(y_test, pred)
+print(score)
 
-
+## 변수들 간의 상관관계 분석
+corr = df.corr(method="pearson")
+print(corr)
